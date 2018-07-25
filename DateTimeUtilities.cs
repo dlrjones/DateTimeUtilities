@@ -35,12 +35,10 @@ namespace DTUtilities
         /// <param name="compValu">the result of the Compare</param>
         /// <returns>a boolean to indicate the success of the Compare</returns>
 		public bool CompareDates(object dateObj, DateTime dt1, ref int compValu) {
-			//dateObj is an unknown object which may or may not be a Date
-			//dt1 is a future, present, or past date
-			//compValu is the result of the Compare [< 0 : dt1 < dateObj]  [= 0 : dt1 = dateObj]  [> 0 : dt1 > dateObj]
+			//compValu : [< 0 : dt1 < dateObj]  [= 0 : dt1 = dateObj]  [> 0 : dt1 > dateObj]
 			// the '<', '>' and '=' refer to relative position on the timeline.
 			//returns: a boolean to indicate the success of the Compare.
-			//		   compValu is a ref that has the actual comparison value
+			//		   compValu is a ref that has the  comparison result
 			bool rtnValu = false;
 			try {
 				compValu = dt1.CompareTo(Convert.ToDateTime(dateObj));
@@ -55,8 +53,8 @@ namespace DTUtilities
 		{ //converts a LongDateString [Day,Month Date,Year]
 		  //to [Month Date,Year]
 			char[] delimiter = " ".ToCharArray();
-			string[] splitStr = dt.Split(delimiter);
-			dt = splitStr[1] + " " + splitStr[2] + " " + splitStr[3];
+			string[] splitDate = dt.Split(delimiter);
+			dt = splitDate[1] + " " + splitDate[2] + " " + splitDate[3];
 			return dt;
 		}
 
@@ -319,8 +317,6 @@ namespace DTUtilities
         {//returns the name of the current month. A positive offset value will give the month name in the future (currentMonth + offset).
 		  //offset can be negative for preceeding months
             string monthName = "";
-            //DateTime dt = new DateTime();
-            //dt = DateTime.Now;
              DateTime month = dt.AddMonths(offset);
              switch (month.Month)
             {
